@@ -15,7 +15,8 @@ def post_list(request):
 def category(request, category):
     category = Category.objects.get(name=category)
     post = Post.objects.filter(category=category)
-    return render(request, 'blog/post_list.html', {'category': category, 'post': post })
+    return render(request, 'blog/post_list.html',
+                   {'category': category, 'posts': post })
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
