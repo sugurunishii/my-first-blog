@@ -1,6 +1,25 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+<a href="{% url 'post_list' %}"><p>トップ</p></a>
+
+    <div>
+        <h4>カテゴリー</h4>
+        {% for category in category_list %}
+            <a href="{% url 'category' category %}">
+            <p style=float:left; margin-right: 5px;>
+                {{ category.name }}
+            </p>
+            </a>
+        {% endfor %}
+    </div><br>
+
+    <h1 style=clear:both;>一覧</h1><br>
+
+    {% if category %}
+        <h3>カテゴリー：{{ category }}</h3>
+    {% endif %}
+
     {% for post in posts %}
         <div class="post">
             <div class="date">
@@ -8,6 +27,7 @@
             </div>
             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
             <p>{{ post.text|linebreaksbr }}</p>
+            <a href="{% url 'post_detail' pk=post.pk %}">コメント: {{ post.approved_comments.count }}</a>
         </div>
     {% endfor %}
-{% endblock %}
+{% endblock content %}
